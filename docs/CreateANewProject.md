@@ -15,3 +15,17 @@ Esse projeto vai utilizar a API do The Movie Database. Para saber mais, clique [
 - Setar o [bundle](https://bundler.io/man/bundle-config.1.html) path na pasta base do projeto. O bundler fornece um ambiente consistente para projetos Ruby rastreando e instalando as gems (libs) e versões exatas que são necessárias.
 ````
 bundle config set --local path 'vendor' 
+````
+- Setar uma versão do ruby para o projeto.
+````
+rbenv local 2.6.5
+````
+- Criar o `Gemfile` para adicionar as gems do projeto.
+````
+touch Gemfile
+````
+- Depois de de adicionar as gems, rodar o comando que instala as gems.
+````
+bundle install
+````
+- Criar o `Mintfile` para adicionar o xcodegem.
