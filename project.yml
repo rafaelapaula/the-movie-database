@@ -1,0 +1,77 @@
+name: TheMovieDatabase
+options:
+  bundleIdPrefix: br.com.telecineplay
+  developmentLanguage: pt-BR
+configs:
+  dev: debug
+targets:
+  TheMovieDatabase:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: 
+      - path: App 
+      - path: Generated
+      - path: "Templates/AutoMockable"
+        excludes:
+          - "**/*.stencil"
+    preBuildScripts:
+      - script: '"$PODS_ROOT/R.swift/rswift" generate "$SRCROOT/Generated/R.generated.swift"'
+        name: "R.swift"
+        inputFiles:
+          - $TEMP_DIR/rswift-lastrun
+        outputFiles:
+          - $SRCROOT/Generated/R.generated.swift
+      - script: '"${PODS_ROOT}/Sourcery/bin/sourcery" --sources "${SRCROOT}/App" --templates "${SRCROOT}/Templates/AutoMockable" --output "${SRCROOT}/Generated"'
+        name: "Sourcery"
+      - script: '"${PODS_ROOT}/SwiftLint/swiftlint" "autocorrect"'
+        name: "SwiftLint"
+    settings:
+      base:
+        DEVELOPMENT_TEAM: N4HYD5WUHG
+        PRODUCT_BUNDLE_IDENTIFIER: br.com.themoviedatabase
+        INFOPLIST_FILE: App/Info.plist
+      configs:
+        dev:
+          BUNDLE_DISPLAY_NAME: App-Dev
+          API_KEY: 98afa825fe8d3ef64fd933b2954f0e4e
+  UnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: [UnitTests]
+    dependencies:
+      - target: TheMovieDatabase
+  UITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: [UITests]
+    dependencies:
+      - target: TheMovieDatabase
+schemes:
+  TheMovieDatabase:
+    run:
+      config: dev
+    build:
+      targets:
+        TheMovieDatabase: all
+  UnitTests:
+    build:
+      targets:
+        UnitTests: all
+    test: 
+      config: dev
+      gatherCoverageData: true
+      targets:
+        - UnitTests
+  UITests:
+    build:
+      targets:
+        UITests: all
+    test: 
+      config: dev
+      gatherCoverageData: true
+      targets:
+        - UITests
+fileGroups: [Templates]
