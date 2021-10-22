@@ -14,8 +14,6 @@ configure_project:
 	make generate_files
 	mint run xcodegen generate
 	bundle exec pod install
-	make setup_templates
-	make setup_sourcery
 
 unit_tests:
 	bundle exec fastlane unit_tests
