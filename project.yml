@@ -1,6 +1,6 @@
 name: TheMovieDatabase
 options:
-  bundleIdPrefix: br.com.telecineplay
+  bundleIdPrefix: br.com.themoviedatabase
   developmentLanguage: pt-BR
 configs:
   dev: debug
