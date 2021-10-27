@@ -1,0 +1,83 @@
+name: TheMovieDatabase
+options:
+  bundleIdPrefix: br.com.themoviedatabase
+  developmentLanguage: pt-BR
+configs:
+  Dev: debug
+  Prod: release
+targets:
+  TheMovieDatabase:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: 
+      - path: App
+      - path: Generated
+    preBuildScripts:
+      - script: '"$PODS_ROOT/R.swift/rswift" generate "$SRCROOT/Generated/R.generated.swift"'
+        name: "R.swift"
+        inputFiles:
+          - $TEMP_DIR/rswift-lastrun
+        outputFiles:
+          - $SRCROOT/Generated/R.generated.swift
+      - script: '"${PODS_ROOT}/SwiftLint/swiftlint" "autocorrect"'
+        name: "SwiftLint"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: br.com.themoviedatabase
+        INFOPLIST_FILE: App/Info.plist
+        API_KEY: 98afa825fe8d3ef64fd933b2954f0e4e
+      configs:
+        Dev:
+          BUNDLE_DISPLAY_NAME: App-Dev
+        Prod:
+          BUNDLE_DISPLAY_NAME: App-Prod
+  UnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: [UnitTests]
+    dependencies:
+      - target: TheMovieDatabase
+  UITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: [UITests]
+    dependencies:
+      - target: TheMovieDatabase
+schemes:
+  Dev:
+    run:
+      config: Dev
+    archive:
+      config: Dev
+    build:
+      targets:
+        TheMovieDatabase: all
+  Prod:
+    run:
+      config: Prod
+    archive:
+      config: Prod
+    build:
+      targets:
+        TheMovieDatabase: all
+  UnitTests:
+    build:
+      targets:
+        UnitTests: all
+    test: 
+      config: Dev
+      gatherCoverageData: true
+      targets:
+        - UnitTests
+  UITests:
+    build:
+      targets:
+        UITests: all
+    test: 
+      config: Dev
+      gatherCoverageData: true
+      targets:
+        - UITests
