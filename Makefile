@@ -14,6 +14,7 @@ configure_project:
 	make generate_files
 	mint run xcodegen generate
 	bundle exec pod install
+	open TheMovieDatabase.xcworkspace
 
 unit_tests:
 	bundle exec fastlane unit_tests

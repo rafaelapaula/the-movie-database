@@ -3,18 +3,16 @@ options:
   bundleIdPrefix: br.com.themoviedatabase
   developmentLanguage: pt-BR
 configs:
-  dev: debug
+  Dev: debug
+  Prod: release
 targets:
   TheMovieDatabase:
     type: application
     platform: iOS
     deploymentTarget: "14.0"
     sources: 
-      - path: App 
+      - path: App
       - path: Generated
-      - path: "Templates/AutoMockable"
-        excludes:
-          - "**/*.stencil"
     preBuildScripts:
       - script: '"$PODS_ROOT/R.swift/rswift" generate "$SRCROOT/Generated/R.generated.swift"'
         name: "R.swift"
@@ -22,19 +20,18 @@ targets:
           - $TEMP_DIR/rswift-lastrun
         outputFiles:
           - $SRCROOT/Generated/R.generated.swift
-      - script: '"${PODS_ROOT}/Sourcery/bin/sourcery" --sources "${SRCROOT}/App" --templates "${SRCROOT}/Templates/AutoMockable" --output "${SRCROOT}/Generated"'
-        name: "Sourcery"
       - script: '"${PODS_ROOT}/SwiftLint/swiftlint" "autocorrect"'
         name: "SwiftLint"
     settings:
       base:
-        DEVELOPMENT_TEAM: N4HYD5WUHG
         PRODUCT_BUNDLE_IDENTIFIER: br.com.themoviedatabase
         INFOPLIST_FILE: App/Info.plist
+        API_KEY: 98afa825fe8d3ef64fd933b2954f0e4e
       configs:
-        dev:
+        Dev:
           BUNDLE_DISPLAY_NAME: App-Dev
-          API_KEY: 98afa825fe8d3ef64fd933b2954f0e4e
+        Prod:
+          BUNDLE_DISPLAY_NAME: App-Prod
   UnitTests:
     type: bundle.unit-test
     platform: iOS
@@ -50,9 +47,19 @@ targets:
     dependencies:
       - target: TheMovieDatabase
 schemes:
-  TheMovieDatabase:
+  Dev:
     run:
-      config: dev
+      config: Dev
+    archive:
+      config: Dev
+    build:
+      targets:
+        TheMovieDatabase: all
+  Prod:
+    run:
+      config: Prod
+    archive:
+      config: Prod
     build:
       targets:
         TheMovieDatabase: all
@@ -61,7 +68,7 @@ schemes:
       targets:
         UnitTests: all
     test: 
-      config: dev
+      config: Dev
       gatherCoverageData: true
       targets:
         - UnitTests
@@ -70,8 +77,7 @@ schemes:
       targets:
         UITests: all
     test: 
-      config: dev
+      config: Dev
       gatherCoverageData: true
       targets:
         - UITests
-fileGroups: [Templates]

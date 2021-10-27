@@ -2,7 +2,7 @@ platform :ios, '14.0'
 
 source 'https://cdn.cocoapods.org/'
 
-project 'TheMovieDatabase', 'dev' => :debug
+project 'TheMovieDatabase', 'Dev' => :debug, 'Prod' => :release
 
 def common_pods
   pod 'R.swift', '5.4.0'
