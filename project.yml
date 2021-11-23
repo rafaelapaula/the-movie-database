@@ -13,6 +13,9 @@ targets:
     sources: 
       - path: App
       - path: Generated
+      - path: "Templates/AutoMockable"
+        excludes:
+          - "**/*.stencil"
     preBuildScripts:
       - script: '"$PODS_ROOT/R.swift/rswift" generate "$SRCROOT/Generated/R.generated.swift"'
         name: "R.swift"
@@ -22,6 +25,8 @@ targets:
           - $SRCROOT/Generated/R.generated.swift
       - script: '"${PODS_ROOT}/SwiftLint/swiftlint" "autocorrect"'
         name: "SwiftLint"
+      - script: '"${PODS_ROOT}/Sourcery/bin/sourcery" --sources "${SRCROOT}/App" --templates "${SRCROOT}/Templates/AutoMockable" --output "${SRCROOT}/Generated"'
+        name: "Sourcery"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: br.com.themoviedatabase
