@@ -14,6 +14,7 @@ configure_project:
 	make generate_files
 	mint run xcodegen generate
 	bundle exec pod install
+	make setup_sourcery
 	open TheMovieDatabase.xcworkspace
 
 unit_tests:
