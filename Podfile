@@ -5,10 +5,9 @@ source 'https://cdn.cocoapods.org/'
 project 'TheMovieDatabase', 'Dev' => :debug, 'Prod' => :release
 
 def common_pods
-  pod 'R.swift', '5.4.0'
-  pod 'Alamofire', '5.4.3'
-  pod 'Sourcery', '1.4.2'
-  pod 'SwiftLint', '0.43.1'
+  pod 'R.swift'
+  pod 'Alamofire'
+  pod 'Sourcery'
 end
 
 def test_pods
@@ -25,7 +24,7 @@ target 'UnitTests' do
   use_frameworks!
   common_pods
   test_pods
-  pod 'SnapshotTesting', '~> 1.9.0'
+  pod 'SnapshotTesting'
 end
 
 target 'UITests' do
