@@ -1,22 +1,22 @@
 PODS:
-  - Alamofire (5.4.3)
+  - Alamofire (5.6.2)
   - Nimble (9.2.0)
   - Quick (4.0.0)
-  - R.swift (5.4.0):
+  - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
   - SnapshotTesting (1.9.0)
-  - Sourcery (1.4.2)
-  - SwiftLint (0.43.1)
+  - Sourcery (1.9.0):
+    - Sourcery/CLI-Only (= 1.9.0)
+  - Sourcery/CLI-Only (1.9.0)
 
 DEPENDENCIES:
-  - Alamofire (= 5.4.3)
+  - Alamofire
   - Nimble (= 9.2.0)
   - Quick (= 4.0.0)
-  - R.swift (= 5.4.0)
-  - SnapshotTesting (~> 1.9.0)
-  - Sourcery (= 1.4.2)
-  - SwiftLint (= 0.43.1)
+  - R.swift
+  - SnapshotTesting
+  - Sourcery
 
 SPEC REPOS:
   trunk:
@@ -27,18 +27,16 @@ SPEC REPOS:
     - R.swift.Library
     - SnapshotTesting
     - Sourcery
-    - SwiftLint
 
 SPEC CHECKSUMS:
-  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   Nimble: 4f4a345c80b503b3ea13606a4f98405974ee4d0b
   Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
-  R.swift: c533450b0f7dc494e0993f5f1a1db925d84c3006
+  R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   SnapshotTesting: 6141c48b6aa76ead61431ca665c14ab9a066c53b
-  Sourcery: 43d8addc35ca31c2ab331cfd34b02421fa53bb7f
-  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
+  Sourcery: d7c59d100e55bf59123c8ae7d65a24cf30748979
 
-PODFILE CHECKSUM: ed4c3c89bd45e11e54f74160b25efe93e097599a
+PODFILE CHECKSUM: 8813e97e71f527f3bb38b1fd58ea169421a42e27
 
 COCOAPODS: 1.10.1

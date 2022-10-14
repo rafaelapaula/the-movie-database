@@ -9,10 +9,13 @@ targets:
   TheMovieDatabase:
     type: application
     platform: iOS
-    deploymentTarget: "14.0"
+    deploymentTarget: "15.0"
     sources: 
       - path: App
       - path: Generated
+      - path: "Templates/AutoMockable"
+        excludes:
+          - "**/*.stencil"
     preBuildScripts:
       - script: '"$PODS_ROOT/R.swift/rswift" generate "$SRCROOT/Generated/R.generated.swift"'
         name: "R.swift"
@@ -20,8 +23,8 @@ targets:
           - $TEMP_DIR/rswift-lastrun
         outputFiles:
           - $SRCROOT/Generated/R.generated.swift
-      - script: '"${PODS_ROOT}/SwiftLint/swiftlint" "autocorrect"'
-        name: "SwiftLint"
+      - script: '"${PODS_ROOT}/Sourcery/bin/sourcery" --sources "${SRCROOT}/App" --templates "${SRCROOT}/Templates/AutoMockable" --output "${SRCROOT}/Generated"'
+        name: "Sourcery"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: br.com.themoviedatabase
@@ -35,14 +38,14 @@ targets:
   UnitTests:
     type: bundle.unit-test
     platform: iOS
-    deploymentTarget: "14.0"
+    deploymentTarget: "15.0"
     sources: [UnitTests]
     dependencies:
       - target: TheMovieDatabase
   UITests:
     type: bundle.ui-testing
     platform: iOS
-    deploymentTarget: "14.0"
+    deploymentTarget: "15.0"
     sources: [UITests]
     dependencies:
       - target: TheMovieDatabase
